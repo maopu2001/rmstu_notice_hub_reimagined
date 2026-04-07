@@ -1,0 +1,24 @@
+{
+  "short_name": "RMSTU Notices",
+  "name": "RMSTU Notice Board",
+  "description": "Official notices, news, events, and academic updates from RMSTU.",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo512.webp",
+      "type": "image/webp",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#2e7d32",
+  "background_color": "#f8f5f0",
+  "lang": "en"
+}
