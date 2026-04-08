@@ -9,7 +9,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="flex items-center justify-between border-b border-foreground/20 w-full h-20 px-4 lg:px-10 fixed top-0 bg-foreground/10 backdrop-blur-lg z-41">
+    <header className="flex items-center justify-between border-b border-foreground/20 w-full h-20 px-4 lg:px-10 fixed top-0 bg-background/70 backdrop-blur-lg z-41">
       <Link to="/" className="font-bold text-2xl flex items-center gap-2">
         <img
           src="/logo512.webp"

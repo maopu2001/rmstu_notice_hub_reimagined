@@ -14,7 +14,7 @@ export const Route = createFileRoute('/')({ component: App })
 
 function App() {
   return (
-    <main className="relative isolate overflow-hidden pb-12">
+    <main className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-72" />
 
       <section className="mx-auto grid w-full max-w-7xl gap-10 px-4 pb-14 pt-12 sm:px-6 xl:grid-cols-2 lg:px-8 lg:pt-20">

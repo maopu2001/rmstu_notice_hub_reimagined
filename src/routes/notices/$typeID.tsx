@@ -70,37 +70,38 @@ function NoticesPage() {
           </p>
         )) ||
           data?.noticeSummaries.map((notice, index) => (
-            <Card
-              key={index}
-              className={`relative overflow-hidden ${notice.typeID == 2 || notice.typeID == 5 ? 'h-32' : 'h-75'}`}
+            <Link
+              to="/notices/$typeID/$postID"
+              params={{
+                typeID: String(notice.typeID),
+                postID: String(notice.postID),
+              }}
+              search={{ page: undefined }}
             >
-              <CardHeader>
-                <Link
-                  to="/notices/$typeID/$postID"
-                  params={{
-                    typeID: String(notice.typeID),
-                    postID: String(notice.postID),
-                  }}
-                  search={{ page: undefined }}
-                >
+              <Card
+                key={index}
+                className={`relative overflow-hidden ${notice.typeID == 2 || notice.typeID == 5 ? 'h-32' : 'h-75'}`}
+              >
+                <CardHeader>
                   <CardTitle
                     className={`${notice.typeID == 5 ? 'line-clamp-3' : 'line-clamp-2'} leading-relaxed -mx-0.5 px-0.5`}
                   >
                     {notice.title}
                   </CardTitle>
-                </Link>
-                <CardDescription>{notice.date}</CardDescription>
-              </CardHeader>
-              {notice.img && (
-                <CardContent className="absolute bottom-0 left-0 right-0 px-0">
-                  <img
-                    src={notice.img}
-                    alt={notice.title}
-                    className="w-full aspect-video object-top object-cover"
-                  />
-                </CardContent>
-              )}
-            </Card>
+
+                  <CardDescription>{notice.date}</CardDescription>
+                </CardHeader>
+                {notice.img && (
+                  <CardContent className="absolute bottom-0 left-0 right-0 px-0">
+                    <img
+                      src={notice.img}
+                      alt={notice.title}
+                      className="w-full aspect-video object-top object-cover"
+                    />
+                  </CardContent>
+                )}
+              </Card>
+            </Link>
           ))}
       </div>
 

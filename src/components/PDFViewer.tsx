@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import 'react-pdf/dist/Page/AnnotationLayer.css'
@@ -13,6 +13,42 @@ export default function PdfViewer({ pdfUrl }: { pdfUrl: string }) {
   const [numPages, setNumPages] = useState(0)
   const [pageNumber, setPageNumber] = useState(1)
   const [loadError, setLoadError] = useState<string | null>(null)
+
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const [width, setWidth] = useState<number>()
+
+  useEffect(() => {
+    if (!reactPdf) {
+      return
+    }
+
+    const container = containerRef.current
+
+    if (!container) {
+      return
+    }
+
+    const resize = () => {
+      const nextWidth = Math.floor(container.offsetWidth)
+      setWidth((prevWidth) => (prevWidth !== nextWidth ? nextWidth : prevWidth))
+    }
+
+    resize()
+    const frameId = window.requestAnimationFrame(resize)
+    window.addEventListener('resize', resize)
+
+    let observer: ResizeObserver | undefined
+    if (typeof ResizeObserver !== 'undefined') {
+      observer = new ResizeObserver(resize)
+      observer.observe(container)
+    }
+
+    return () => {
+      window.cancelAnimationFrame(frameId)
+      window.removeEventListener('resize', resize)
+      observer?.disconnect()
+    }
+  }, [reactPdf])
 
   useEffect(() => {
     let isActive = true
@@ -93,7 +129,10 @@ export default function PdfViewer({ pdfUrl }: { pdfUrl: string }) {
               <ArrowRight />
             </Button>
           </div>
-          <div className="border border-gray-300 shadow-lg inline-block">
+          <div
+            ref={containerRef}
+            className="w-full max-w-150 h-full border border-gray-300 shadow-lg inline-block"
+          >
             {Document && Page ? (
               <Document
                 file={pdfUrl}
@@ -105,7 +144,9 @@ export default function PdfViewer({ pdfUrl }: { pdfUrl: string }) {
                   pageNumber={pageNumber}
                   renderTextLayer={true}
                   renderAnnotationLayer={true}
-                  width={600}
+                  width={
+                    typeof width === 'number' ? Math.min(width, 600) : undefined
+                  }
                 />
               </Document>
             ) : null}
