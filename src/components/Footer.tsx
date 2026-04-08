@@ -4,7 +4,9 @@ export default function Footer() {
   return (
     <footer>
       <div className="fixed bg-foreground/10 backdrop-blur-xl z-40 bottom-0 w-full text-center text-sm text-muted-foreground py-2 border-t ">
-        &copy; {year} RMSTU Notice Hub. All rights reserved. Developed by{' '}
+        &copy; {year} RMSTU Notice Hub. All rights reserved.{' '}
+        <br className="block sm:hidden" />
+        Developed by{' '}
         <a
           className="font-semibold text-primary"
           href="https://github.com/maopu2001"

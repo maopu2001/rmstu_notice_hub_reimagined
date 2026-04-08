@@ -17,17 +17,17 @@ function App() {
     <main className="relative isolate overflow-hidden pb-12">
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-72" />
 
-      <section className="mx-auto grid w-full max-w-7xl gap-10 px-4 pb-14 pt-12 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:pt-20">
+      <section className="mx-auto grid w-full max-w-7xl gap-10 px-4 pb-14 pt-12 sm:px-6 xl:grid-cols-2 lg:px-8 lg:pt-20">
         <div className="animate-in fade-in duration-300 flex flex-col justify-center items-center">
           <div>
             <img
               src="/logo512.webp"
               alt="RMSTU Notice Board Logo"
-              className="mx-auto h-80 w-auto"
+              className="mx-auto h-60 sm:h-80 w-auto"
             />
           </div>
 
-          <h1 className="mt-2 font-serif text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+          <h1 className="mt-2 font-serif text-3xl font-bold leading-tight sm:text-4xl lg:text-6xl">
             RMSTU Notice Hub
           </h1>
 
@@ -35,7 +35,7 @@ function App() {
             Stay updated with every important RMSTU notice.
           </p>
 
-          <div className="mt-5 flex flex-wrap items-center gap-3">
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
             <Button asChild size="lg">
               <Link
                 to="/notices/$typeID"
@@ -60,7 +60,7 @@ function App() {
         </div>
 
         <div className="w-full flex items-center justify-center">
-          <Card className="animate-in fade-in duration-300 lg:mt-4 h-fit w-120">
+          <Card className="animate-in fade-in duration-300 lg:mt-4 h-fit w-80 sm:w-120">
             <CardHeader>
               <CardTitle className="text-xl">Quick Access</CardTitle>
               <CardDescription>

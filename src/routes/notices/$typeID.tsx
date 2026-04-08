@@ -112,8 +112,9 @@ function NoticesPage() {
               disabled={currentPage <= 1}
             />
           </PaginationItem>
+
           {Array.from({ length: data.totalPage }, (_, i) => (
-            <PaginationItem key={i + 1}>
+            <PaginationItem key={i + 1} className="hidden lg:block">
               <PaginationLink
                 href={pageHref(i + 1)}
                 isActive={i + 1 === currentPage}
@@ -122,6 +123,30 @@ function NoticesPage() {
               </PaginationLink>
             </PaginationItem>
           ))}
+
+          {Array.from({ length: data.totalPage }, (_, i) => i + 1)
+            .filter((page) => {
+              const start = Math.max(1, currentPage - 2)
+              const end = Math.min(data.totalPage, currentPage + 2)
+              let finalStart = start
+              let finalEnd = end
+              if (currentPage <= 3) finalEnd = Math.min(5, data.totalPage)
+              else if (currentPage > data.totalPage - 2)
+                finalStart = Math.max(1, data.totalPage - 4)
+
+              return page >= finalStart && page <= finalEnd
+            })
+            .map((page) => (
+              <PaginationItem key={page} className="block lg:hidden">
+                <PaginationLink
+                  href={pageHref(page)}
+                  isActive={page === currentPage}
+                >
+                  {page}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+
           <PaginationItem>
             <PaginationNext
               href={pageHref(currentPage + 1)}
