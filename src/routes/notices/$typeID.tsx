@@ -21,6 +21,8 @@ import {
   createFileRoute,
   useRouterState,
 } from '@tanstack/react-router'
+import { Button } from '#/components/ui/button'
+import { Home } from 'lucide-react'
 
 export const Route = createFileRoute('/notices/$typeID')({
   validateSearch: (search: Record<string, unknown>) => {
@@ -31,7 +33,7 @@ export const Route = createFileRoute('/notices/$typeID')({
     return { page }
   },
   loaderDeps: ({ search }) => ({ pageNo: search.page }),
-  loader: ({ params, deps }) =>
+  loader: async ({ params, deps }) =>
     getAllNotices({
       data: {
         typeID: Number(params.typeID),
@@ -44,6 +46,24 @@ export const Route = createFileRoute('/notices/$typeID')({
 
 function NoticesPage() {
   const data = Route.useLoaderData()
+
+  if (data?.error) {
+    return (
+      <div className="w-full h-[calc(100vh-10rem)] flex flex-col gap-5 items-center justify-center text-xl">
+        <span className="text-center font-semibold">
+          {data.error || 'An unexpected error occurred.'}
+        </span>
+        <span>Status Code: {data.status}</span>
+
+        <Button className="w-fit" asChild>
+          <Link to="/">
+            <Home />
+            <span>Go Home</span>
+          </Link>
+        </Button>
+      </div>
+    )
+  }
   const search = Route.useSearch()
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
@@ -71,6 +91,7 @@ function NoticesPage() {
         )) ||
           data?.noticeSummaries.map((notice, index) => (
             <Link
+              key={index}
               to="/notices/$typeID/$postID"
               params={{
                 typeID: String(notice.typeID),
@@ -79,8 +100,7 @@ function NoticesPage() {
               search={{ page: undefined }}
             >
               <Card
-                key={index}
-                className={`relative overflow-hidden ${notice.typeID == 2 || notice.typeID == 5 ? 'h-32' : 'h-75'}`}
+                className={`relative overflow-hidden pb-0 ${notice.typeID == 2 || notice.typeID == 5 ? 'h-32' : 'h-fit'}`}
               >
                 <CardHeader>
                   <CardTitle
@@ -92,7 +112,7 @@ function NoticesPage() {
                   <CardDescription>{notice.date}</CardDescription>
                 </CardHeader>
                 {notice.img && (
-                  <CardContent className="absolute bottom-0 left-0 right-0 px-0">
+                  <CardContent className="px-0">
                     <img
                       src={notice.img}
                       alt={notice.title}

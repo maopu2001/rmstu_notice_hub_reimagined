@@ -21,6 +21,18 @@ export const getAllNotices = createServerFn()
       const response = await fetch(
         `${process.env.VITE_EXTERNAL_LINK}/notice?type=${typeID}${resolvedPageNo ? `&page=${resolvedPageNo}` : ''}`,
       )
+
+      if (!response.ok) {
+        console.error(
+          'Failed to fetch this notice board details:',
+          response.status,
+          await response.text(),
+        )
+        return {
+          error: 'This notice board is not available.',
+          status: response.status,
+        }
+      }
       const $ = cheerio.load(await response.text())
       const noticeSummaries: NoticeSummaryProp[] = []
       const totalPage = $('.pagination li').length - 2

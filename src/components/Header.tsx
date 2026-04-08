@@ -49,7 +49,7 @@ export default function Header() {
         </Button>
         {/* Panel */}
         <div
-          className={`fixed z-50 top-0 right-0 w-4/5 max-w-100 h-svh bg-black backdrop-blur-2xl px-8 py-8 flex flex-col items-start gap-4 transition-transform duration-300 ease-in-out transform-gpu origin-top-right lg:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+          className={`fixed z-50 top-0 right-0 w-4/5 max-w-100 h-svh bg-black/90 backdrop-blur-2xl px-8 py-8 flex flex-col items-start gap-4 transition-transform duration-300 ease-in-out transform-gpu origin-top-right lg:hidden ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
         >
           <Button
             variant="ghost"
